@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import AvailableMeals from './components/AvailableMeals';
 import Header from './components/Header';
+import Meals from './components/Meals';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <Header cart={cart} onChangeCart={handleChangeCart} />
-      <AvailableMeals onAddCart={handleAddMealToCart} />
+      <Meals onAddCart={handleAddMealToCart} />
     </>
   );
 }

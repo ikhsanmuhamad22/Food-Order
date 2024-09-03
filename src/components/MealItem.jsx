@@ -1,8 +1,8 @@
-export default function Meal({ meals, onAddCart, isLoading, loadingText }) {
+export default function MealItem({ meals, onAddCart, isLoading, loadingText }) {
   return (
     <>
       {meals.map((meal) => (
-        <div id={meal.id} className="meal-item">
+        <li id={meal.id} className="meal-item">
           <article>
             <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
             <h3>{meal.name}</h3>
@@ -14,7 +14,7 @@ export default function Meal({ meals, onAddCart, isLoading, loadingText }) {
               </button>
             </div>
           </article>
-        </div>
+        </li>
       ))}
     </>
   );
