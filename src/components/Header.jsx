@@ -17,7 +17,7 @@ export default function Header({ cart, onChangeCart }) {
 
   return (
     <>
-      {activeModal === 'checkout' && (
+      {/* {activeModal === 'checkout' && (
         <Modal open={activeModal}>
           <Checkout onChangeModal={handleChangeModal} carts={cart} />
         </Modal>
@@ -31,18 +31,20 @@ export default function Header({ cart, onChangeCart }) {
             onChangeCart={onChangeCart}
           />
         </Modal>
-      )}
+      )} */}
       <header id="main-header">
         <div id="title">
-          <img src={headerImg} alt="" />
+          <img src={headerImg} alt="A restourant" />
           <h1>Food Order</h1>
         </div>
-        <button
-          onClick={() => handleChangeModal('cart')}
-          className="text-button"
-        >
-          Cart ({cart.length})
-        </button>
+        <nav>
+          <button
+            onClick={() => handleChangeModal('cart')}
+            className="text-button"
+          >
+            Cart ({cart.length})
+          </button>
+        </nav>
       </header>
     </>
   );
