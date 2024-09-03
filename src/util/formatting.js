@@ -25,3 +25,8 @@ export function amoutPrice(cart) {
 
   return Math.round(amount);
 }
+
+export const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
