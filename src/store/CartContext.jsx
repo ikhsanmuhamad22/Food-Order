@@ -13,7 +13,6 @@ function cartReducer(state, action) {
     });
     const updatedItems = [...state.items];
     if (existingItemsCartIndex > -1) {
-      console.log('yes');
       const existingItem = state.items[existingItemsCartIndex];
       const updatedItem = {
         ...existingItem,
@@ -27,19 +26,20 @@ function cartReducer(state, action) {
   }
 
   if (action.type === 'REMOVE_ITEM') {
-    const existingItemsCartIndex = state.items.findIndex((item) => {
+    const existingCartItemIndex = state.items.findIndex((item) => {
       return item.id === action.id;
     });
+    const existingCartItem = state.items[existingCartItemIndex];
     const updatedItems = [...state.items];
-    if (existingItemsCartIndex === 1) {
-      const existingItem = state.items[existingItemsCartIndex];
-      updatedItems.slice(existingItem, 1);
+
+    if (existingCartItem.quantity === 1) {
+      updatedItems.splice(existingCartItemIndex, 1);
     } else {
       const updatedItem = {
-        ...existingItem,
-        quantity: existingItem.quantity - 1,
+        ...existingCartItem,
+        quantity: existingCartItem.quantity - 1,
       };
-      updatedItems[existingItemsCartIndex] = updatedItem;
+      updatedItems[existingCartItemIndex] = updatedItem;
     }
     return { ...state, items: updatedItems };
   }
@@ -51,13 +51,13 @@ export function CartContextProvider({ children }) {
   function addItem(item) {
     dispathCartAction({ type: 'ADD_ITEM', item });
   }
-  function removeId(id) {
+  function removeItem(id) {
     dispathCartAction({ type: 'REMOVE_ITEM', id });
   }
   const cartContext = {
     items: cart.items,
     addItem,
-    removeId,
+    removeItem,
   };
 
   return (
