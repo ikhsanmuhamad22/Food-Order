@@ -103,6 +103,10 @@ h1 {
   border-radius: 4px;
 }
 
+.center {
+  text-align: center;
+}
+
 .meal-item-actions {
   margin-bottom: 1.5rem;
 }

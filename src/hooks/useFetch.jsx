@@ -1,23 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export function useFetch(fetchingfn, initialValue) {
-  const [isFetching, setIsFetching] = useState();
-  const [error, setError] = useState();
+async function sendHttpRequest(url, config) {
+  const response = await fetch(url, config);
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      resData.message || 'something went wrong, failed to send request'
+    );
+  }
+
+  return resData;
+}
+
+export default function useHtttp(url, config, initialValue) {
   const [data, setData] = useState(initialValue);
-  useEffect(() => {
-    async function fetchingUserData() {
-      setIsFetching(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const sendRequest = useCallback(
+    async function sendRequest() {
+      setIsLoading(true);
       try {
-        const data = await fetchingfn();
-        setData(data);
+        const resData = await sendHttpRequest(url, config);
+        setData(resData);
       } catch (error) {
-        setError({ message: error.message || 'failed to fetch data' });
+        setError(error.message || 'something went wrong');
       }
-      setIsFetching(false);
-    }
+      setIsLoading(false);
+    },
+    [url, config]
+  );
 
-    fetchingUserData();
-  }, [fetchingfn]);
+  useEffect(() => {
+    if ((config && (config.method === 'GET' || !config.method)) || !config)
+      sendRequest();
+  }, [sendRequest, config]);
 
-  return { isFetching, error, setData, data };
+  return {
+    data,
+    isLoading,
+    error,
+    sendRequest,
+  };
 }
