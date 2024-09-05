@@ -1,63 +1,53 @@
-import { createOrders } from '../http';
-import { amoutPrice } from '../util/function';
+import { useContext } from 'react';
+import Modal from './Ui/Modal';
+import CartContext from '../store/CartContext';
+import { currencyFormatter } from '../util/formatting';
+import Input from './Ui/Input';
+import UserProgressContext from '../store/UserProgressContext';
+import Button from './UI/Button';
 
-export default function Checkout({ onChangeModal, carts }) {
-  const total = amoutPrice(carts);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const customerData = Object.fromEntries(fd.entries());
-
-    const order = {
-      items: carts,
-      customer: customerData,
-    };
-
-    try {
-      await createOrders({ order });
-      console.log('Order successfully created');
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
-  }
+export default function Checkout() {
+  const cartCtx = useContext(CartContext);
+  const userProgressCtx = useContext(UserProgressContext);
+  const totalPriceCart = cartCtx.items.reduce((total, item) => {
+    return total + item.quantity * item.price;
+  }, 0);
 
   return (
-    <div>
+    <Modal open={userProgressCtx.progress === 'checkout'}>
       <h2>Checkout</h2>
-      <p>Total amout ${total}</p>
-      <form onSubmit={handleSubmit}>
-        <div className="control">
-          <label htmlFor="name">Full Name</label>
-          <input id="name" name="name" type="text" />
-        </div>
-        <div className="control">
-          <label htmlFor="email">Email Address</label>
-          <input id="email" name="email" type="text" />
-        </div>
-        <div className="control">
-          <label htmlFor="street">Street</label>
-          <input id="street" name="street" type="text" />
-        </div>
+      <p>Total amout {currencyFormatter.format(totalPriceCart)}</p>
+      <form>
+        <Input className="control" label="Full-name" id="name" type="text" />
+        <Input
+          className="control"
+          label="Email address"
+          id="email"
+          type="email"
+        />
+        <Input className="control" label="Street" id="street" type="text" />
         <div className="control-row">
-          <div className="control">
-            <label htmlFor="postal-code">Postal Code</label>
-            <input id="postal-code" name="postal-code" type="text" />
-          </div>
-          <div className="control">
-            <label htmlFor="city">City</label>
-            <input id="city" name="city" type="text" />
-          </div>
+          <Input
+            className="control"
+            label="Postal-code"
+            id="postal-code"
+            type="text"
+          />
+          <Input className="control" label="City" id="city" type="text" />
         </div>
         <div className="modal-actions">
-          <button className="text-button" onClick={() => onChangeModal('cart')}>
+          <Button
+            type="button"
+            onClick={() => userProgressCtx.hideCheckout()}
+            textOnly
+          >
             Close
-          </button>
-          <button type="submit" className="button">
+          </Button>
+          <Button type="submit" className="button">
             Submit Order
-          </button>
+          </Button>
         </div>
       </form>
-    </div>
+    </Modal>
   );
 }

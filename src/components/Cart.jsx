@@ -38,7 +38,11 @@ export default function Cart() {
         <Button textOnly onClick={handleHideCart}>
           Close
         </Button>
-        <Button className="button">Go to checkout</Button>
+        {cartCtx.items.length !== 0 && (
+          <Button onClick={userProgressCtx.showCheckout} className="button">
+            Go to checkout
+          </Button>
+        )}
       </div>
     </Modal>
   );

@@ -18,7 +18,7 @@ export function UserProgressProvider({ children }) {
     setProgress('');
   }
   function showCheckout() {
-    setProgress('chekcout');
+    setProgress('checkout');
   }
   function hideCheckout() {
     setProgress('');
