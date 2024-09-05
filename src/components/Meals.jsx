@@ -1,4 +1,4 @@
-import useHtttp from '../hooks/useFetch';
+import useHtttp from '../hooks/useHttp';
 import Error from './Error';
 import MealItem from './MealItem';
 
@@ -9,7 +9,7 @@ export default function Meals() {
     data: loadMeals,
     isLoading,
     error,
-  } = useHtttp('http://localhost:3000/mealss', requestMethod, []);
+  } = useHtttp('http://localhost:3000/meals', requestMethod, []);
 
   if (isLoading) {
     return <p className="center">fetching data...</p>;
