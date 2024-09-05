@@ -6,17 +6,18 @@
         "name": "Mac & Cheese",
         "price": "8.99",
         "description": "Creamy cheddar cheese mixed with perfectly cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.",
-        "image": "images/mac-and-cheese.jpg"
+        "image": "images/mac-and-cheese.jpg",
+        "quantity": 2
       }
     ],
     "customer": {
-      "name": "iskah",
+      "name": "ikshan",
       "email": "ikhsan@gmail.com",
       "street": "asdf",
       "postal-code": "fasd",
       "city": "asdf"
     },
-    "id": "168.75802338926738"
+    "id": "139.60505588413974"
   },
   {
     "items": [
@@ -25,16 +26,17 @@
         "name": "Mac & Cheese",
         "price": "8.99",
         "description": "Creamy cheddar cheese mixed with perfectly cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.",
-        "image": "images/mac-and-cheese.jpg"
+        "image": "images/mac-and-cheese.jpg",
+        "quantity": 2
       }
     ],
     "customer": {
-      "name": "iskah",
+      "name": "ikshan",
       "email": "ikhsan@gmail.com",
       "street": "asdf",
       "postal-code": "fasd",
       "city": "asdf"
     },
-    "id": "592.0620724667756"
+    "id": "965.4539339264281"
   }
 ]
